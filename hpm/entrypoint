@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 MTIME=30
 trapath="$XDG_DATA_HOME/mytrash/files"
 if [ -z "$1" ]; then
@@ -10,7 +10,7 @@ if [ -z "$1" ]; then
 	echo "$filelist"
 	echo "Proceed?"
 	if (read -q); then
-		find "$trapath" -mtime +$MTIME -exec rm --one-file-system -r {} \+
+		find "$trapath" -maxdepth 1 -mtime +$MTIME -exec rm --one-file-system -r {} \+
 		du -d 0 "$trapath"
 	fi
 else
