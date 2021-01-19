@@ -1,0 +1,22 @@
+#!/bin/bash
+MTIME=30
+trapath="$XDG_DATA_HOME/mytrash/files"
+if [ -z "$1" ]; then
+	filelist="$(find "$trapath" -maxdepth 1 -mtime +$MTIME -print)"
+	du -d 0 "$trapath"
+	if [ -z "$filelist" ]; then
+		return 0
+	fi
+	echo "$filelist"
+	echo "Proceed?"
+	if (read -q); then
+		find "$trapath" -mtime +$MTIME -exec rm --one-file-system -r {} \+
+		du -d 0 "$trapath"
+	fi
+else
+	mkdir -p "$trapath"
+	for var in "$@"; do
+		touch "$var"
+		mv --backup=numbered "$var" "$trapath/${var:t}-$(date +%s)"
+	done
+fi
