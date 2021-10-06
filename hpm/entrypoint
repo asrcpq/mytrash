@@ -17,6 +17,6 @@ else
 	mkdir -p "$trapath"
 	for var in "$@"; do
 		touch "$var"
-		mv --backup=numbered "$var" "$trapath/${var:t}-$(date +%s)"
+		mv -v --backup=numbered "$var" "$trapath/${var:t}-$(date +%s)"
 	done
 fi
