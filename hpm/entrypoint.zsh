@@ -2,7 +2,7 @@
 set -e
 zmodload zsh/datetime
 MTIME=30
-trapath="$XDG_DATA_HOME/mytrash/files"
+trapath="$HPM_ROOT/asrcpq/mytrash/files"
 if [ -z "$1" ]; then
 	filelist="$(find "$trapath" -maxdepth 1 -mtime +$MTIME -print)"
 	du -d 0 "$trapath"
