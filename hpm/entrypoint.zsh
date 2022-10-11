@@ -18,14 +18,12 @@ if [ -z "$1" ]; then
 else
 	mkdir -p "$trapath"
 	for var in "$@"; do
-		if ! [ -e "$var" ]; then
-			if [ -L "$var" ]; then
-				echo "Remove broken symlink $var"
-				rm "$var"
-			else
-				echo "$var not found!"
-				exit 1
-			fi
+		if [ -L "$var" ]; then
+			echo "Remove symlink $var"
+			rm "$var"
+		elif ! [ -e "$var" ]; then
+			echo "$var not found!"
+			exit 1
 		else
 			touch "$var"
 			mv -v --backup=numbered "$var" "$trapath/${var:t}-$EPOCHSECONDS"
